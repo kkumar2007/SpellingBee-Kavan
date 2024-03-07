@@ -45,6 +45,20 @@ public class SpellingBee {
     //  that will find the substrings recursively.
     public void generate() {
         // YOUR CODE HERE — Call your recursive method!
+        generate("", letters);
+
+    }
+    public void generate(String start, String chars ) {
+        if(chars.length() == 0)
+        {
+            return;
+        }
+        for(int i = 0; i < chars.length(); i++)
+        {
+            generate(start)
+            words.add()
+        }
+
     }
 
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
