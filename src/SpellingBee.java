@@ -46,25 +46,59 @@ public class SpellingBee {
     public void generate() {
         // YOUR CODE HERE — Call your recursive method!
         generate("", letters);
-
     }
-    public void generate(String start, String chars ) {
-        if(chars.length() == 0)
-        {
+
+    public void generate(String start, String chars) {
+        if (chars.isEmpty()) {
+            words.add(start);
             return;
         }
-        for(int i = 0; i < chars.length(); i++)
-        {
-            generate(start)
-            words.add()
-        }
 
+        for (int i = 0; i < chars.length(); i++) {
+            words.add(start);
+            String newPrefix = start + chars.charAt(i);
+            String newRemaining = chars.substring(0, i) + chars.substring(i + 1);
+            generate(newPrefix, newRemaining);
+        }
+        return;
     }
 
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
+        mergeSort(words);
+        System.out.println(words);
+    }
+    public void mergeSort(ArrayList<String> arr) {
+        if (arr.size() <= 1) {
+            return;
+        }
+        int mid = arr.size() / 2;
+        ArrayList<String> left = new ArrayList<>(arr.subList(0, mid));
+        ArrayList<String> right = new ArrayList<>(arr.subList(mid, arr.size()));
+
+        mergeSort(left);
+        mergeSort(right);
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        while (i < left.size() && j < right.size()) {
+            if (left.get(i).compareTo(right.get(j)) < 0) {
+                words.set(k++, left.get(i++));
+            } else {
+                words.set(k++, right.get(j++));
+            }
+        }
+
+        while (i < left.size()) {
+            words.set(k++, left.get(i++));
+        }
+
+        while (j < right.size()) {
+            words.set(k++, right.get(j++));
+        }
     }
 
     // Removes duplicates from the sorted list.
