@@ -67,41 +67,29 @@ public class SpellingBee {
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
-        mergeSort(words);
+        mergeSort(0, words.size()-1);
         System.out.println(words);
     }
-    public void mergeSort(ArrayList<String> arr) {
-        if (arr.size() <= 1) {
+    public void mergeSort(int low, int high) {
+        if (words.size() <= 1) {
             return;
         }
-        int mid = arr.size() / 2;
-        ArrayList<String> left = new ArrayList<>(arr.subList(0, mid));
-        ArrayList<String> right = new ArrayList<>(arr.subList(mid, arr.size()));
-
-        mergeSort(left);
-        mergeSort(right);
-        int i = 0;
-        int j = 0;
-        int k = 0;
-
-        while (i < left.size() && j < right.size()) {
-            if (left.get(i).compareTo(right.get(j)) < 0) {
-                words.set(k++, left.get(i++));
-            } else {
-                words.set(k++, right.get(j++));
-            }
-        }
-
-        while (i < left.size()) {
-            words.set(k++, left.get(i++));
-        }
-
-        while (j < right.size()) {
-            words.set(k++, right.get(j++));
+        int mid = words.size() / 2;
+        mergeSort(low, mid);
+        mergeSort(mid+1, high);
+        mergeFinal(low, high, mid);
+    }
+    // Removes duplicates from the sorted list.
+    public void mergeFinal(int low, int high, int mid)
+    {
+        ArrayList<String> copy = new ArrayList<String>();
+        int i = low;
+        int j = mid+1;
+        while(i<= mid && j <= high)
+        {
+            if(words.get(i).compareTo(words.get(j)))
         }
     }
-
-    // Removes duplicates from the sorted list.
     public void removeDuplicates() {
         int i = 0;
         while (i < words.size() - 1) {
