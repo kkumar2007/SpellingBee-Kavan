@@ -68,7 +68,6 @@ public class SpellingBee {
     public void sort() {
         // YOUR CODE HERE
         mergeSort(0, words.size()-1);
-        System.out.println(words);
     }
     public void mergeSort(int low, int high) {
         if (high - low == 0) {
@@ -128,7 +127,7 @@ public class SpellingBee {
     {
         // YOUR CODE HERE
         for (int i = 0; i < words.size(); i++) {
-            if (binarySearch(words.get(i))) {
+            if (!binarySearch(words.get(i))) {
                 words.remove(i);
                 i--;
             }

@@ -1,10 +1,6 @@
-
-abt
-atb
-b
-ba
-bt
-bta
-t
-tb
-tba
+a
+ab
+ac
+ca
+cab
+cb
