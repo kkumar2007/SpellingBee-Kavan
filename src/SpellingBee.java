@@ -71,10 +71,10 @@ public class SpellingBee {
         System.out.println(words);
     }
     public void mergeSort(int low, int high) {
-        if (words.size() <= 1) {
+        if (high - low == 0) {
             return;
         }
-        int mid = words.size() / 2;
+        int mid = (low+high) / 2;
         mergeSort(low, mid);
         mergeSort(mid+1, high);
         mergeFinal(low, high, mid);
@@ -82,12 +82,33 @@ public class SpellingBee {
     // Removes duplicates from the sorted list.
     public void mergeFinal(int low, int high, int mid)
     {
-        ArrayList<String> copy = new ArrayList<String>();
+        ArrayList<String> c = new ArrayList<String>();
         int i = low;
         int j = mid+1;
         while(i<= mid && j <= high)
         {
-            if(words.get(i).compareTo(words.get(j)))
+            if(words.get(i).compareTo(words.get(j)) < 0)
+            {
+                c.add(words.get(i));
+                i++;
+            }
+            else
+            {
+                c.add(words.get(j));
+                j++;
+            }
+        }
+        while(i <= mid)
+        {
+            c.add(words.get(i));
+            i++;
+        }
+        while (j <= high) {
+            c.add(words.get(j));
+            j++;
+        }
+        for (int k = 0; k < c.size(); k++) {
+            words.set(low + k, c.get(k));
         }
     }
     public void removeDuplicates() {
@@ -103,9 +124,36 @@ public class SpellingBee {
 
     // TODO: For each word in words, use binary search to see if it is in the dictionary.
     //  If it is not in the dictionary, remove it from words.
-    public void checkWords() {
+    public void checkWords()
+    {
         // YOUR CODE HERE
+        for (int i = 0; i < words.size(); i++) {
+            if (binarySearch(words.get(i))) {
+                words.remove(i);
+                i--;
+            }
+        }
     }
+    public boolean binarySearch(String word)
+    {
+        int low = 0;
+        int high = DICTIONARY_SIZE - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int comparison = DICTIONARY[mid].compareTo(word);
+
+            if (comparison == 0) {
+                return true;
+            } else if (comparison < 0) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return false;
+    }
+
 
     // Prints all valid words to wordList.txt
     public void printWords() throws IOException {
